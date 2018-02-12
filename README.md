@@ -14,7 +14,7 @@ $ git clone https://github.com/opreaalex/simple-rest-app
 ```
 $ cd ~/projects/simple-rest-app
 
-$ mvn clean spring-boot:run
+$ mvn spring-boot:run
 ```
 The application will run (by default) at: <b>localhost:8080</b>.
 
