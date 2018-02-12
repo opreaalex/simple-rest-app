@@ -1,5 +1,6 @@
 package com.opreaalex.resource;
 
+import com.opreaalex.domain.Stock;
 import com.opreaalex.dto.StockDTO;
 import com.opreaalex.dto.StockListDTO;
 import com.opreaalex.resource.form.CreateStockForm;
@@ -20,7 +21,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api")
-public class StockResource {
+public class ApiResource {
 
     @Autowired
     private StockService stockService;
@@ -40,9 +41,9 @@ public class StockResource {
 
     @RequestMapping(path = "/stocks", method = RequestMethod.POST)
     public ResponseEntity postStock(@Valid @RequestBody CreateStockForm form) {
-        final BigInteger id = stockService.create(
+        final Stock stock = stockService.create(
                 form.getName(), new BigInteger(form.getAmount()));
-        final URI uri = UriUtil.getUriWithStockId(id);
+        final URI uri = UriUtil.getUriWithStockId(stock.getId());
 
         return ResponseEntity.accepted()
                 .header("Location", uri.toString())

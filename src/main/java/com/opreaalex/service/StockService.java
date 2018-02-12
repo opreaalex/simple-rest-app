@@ -2,8 +2,11 @@ package com.opreaalex.service;
 
 import com.opreaalex.dao.StockDAO;
 import com.opreaalex.domain.Stock;
+import com.opreaalex.dto.StockDTO;
+import com.opreaalex.util.DTOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -15,8 +18,13 @@ public class StockService {
     @Autowired
     private StockDAO stockDAO;
 
-    public BigInteger create(final String name, final BigInteger amount) {
-        return stockDAO.create(name, amount);
+    @Autowired
+    private SimpMessagingTemplate template;
+
+    public Stock create(final String name, final BigInteger amount) {
+        final Stock stock = stockDAO.create(name, amount);
+        handleCreateWS(stock);
+        return stock;
     }
 
     public List<Stock> findAll() {
@@ -32,5 +40,11 @@ public class StockService {
                 .map(stock -> stockDAO.update(
                         new Stock(stock.getId(), stock.getName(), amount)))
                 .orElse(false);
+    }
+
+    private void handleCreateWS(final Stock stock) {
+        // Method will broadcast a Stock creation to Web Socket listeners
+        template.convertAndSend("/topic/stocks",
+                DTOUtil.stockDtoToPrintableFormat(new StockDTO(stock)));
     }
 }

@@ -3,6 +3,8 @@ package com.opreaalex.dto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.opreaalex.domain.Stock;
 
+import java.util.Map;
+
 public class StockDTO {
 
     @JsonUnwrapped

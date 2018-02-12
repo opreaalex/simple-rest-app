@@ -5,12 +5,12 @@ import javax.validation.constraints.Pattern;
 
 public class CreateStockForm {
 
-    @NotNull
+    @NotNull(message = "name must not be null")
     @Pattern(regexp = "^[a-zA-Z0-9_]*$",
              message = "name must only contain alphanumeric characters")
     private String name;
 
-    @NotNull
+    @NotNull(message = "amount must not be null")
     @Pattern(regexp = "^0|[1-9]\\d*$",
             message = "amount must be a positive integer")
     private String amount;

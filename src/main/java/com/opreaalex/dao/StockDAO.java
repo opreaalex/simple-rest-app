@@ -15,7 +15,7 @@ public interface StockDAO {
      * @param amount The Stock's amount.
      * @return The new Stock's Id (if the operation was successful).
      */
-    BigInteger create(String name, BigInteger amount);
+    Stock create(String name, BigInteger amount);
 
     /**
      * Retrieve all Stocks from storage.

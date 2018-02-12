@@ -16,12 +16,12 @@ public class InMemoryStockDAO implements StockDAO {
     private Map<BigInteger, Stock> stockMap = new HashMap<>();
 
     @Override
-    public BigInteger create(final String name, final BigInteger amount) {
+    public Stock create(final String name, final BigInteger amount) {
         synchronized (this) {
             final BigInteger id = getNextId();
             final Stock stock = new Stock(id, name, amount);
             stockMap.put(id, stock);
-            return id;
+            return stock;
         }
     }
 
