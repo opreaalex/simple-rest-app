@@ -1,8 +1,7 @@
 package com.opreaalex.resource;
 
-import com.opreaalex.dto.StockDTO;
 import com.opreaalex.service.StockService;
-import com.opreaalex.util.DTOUtil;
+import com.opreaalex.util.PrintUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +20,10 @@ public class WebResource {
     public String getIndex(final Map<String, Object> modelMap) {
         List<Map<String, String>> stocks = stockService.findAll()
                 .stream()
-                .map(StockDTO::new)
-                .map(DTOUtil::stockDtoToPrintableFormat)
+                .map(PrintUtil::toUserFriendlyStock)
                 .collect(Collectors.toList());
         modelMap.put("stocks", stocks);
+
         return "index";
     }
 }

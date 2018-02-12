@@ -21,6 +21,7 @@ public class InMemoryStockDAO implements StockDAO {
             final BigInteger id = getNextId();
             final Stock stock = new Stock(id, name, amount);
             stockMap.put(id, stock);
+
             return stock;
         }
     }
@@ -44,11 +45,8 @@ public class InMemoryStockDAO implements StockDAO {
             if (!stockMap.containsKey(stock.getId())) {
                 return false;
             }
-            stockMap.put(stock.getId(),
-                    new Stock(
-                            stock.getId(),
-                            stock.getName(),
-                            stock.getAmount()));
+            stockMap.put(stock.getId(), stock);
+
             return true;
         }
     }
@@ -58,6 +56,7 @@ public class InMemoryStockDAO implements StockDAO {
         synchronized (this) {
             final boolean exists = stockMap.containsKey(stock.getId());
             stockMap.remove(stock.getId());
+
             return exists;
         }
     }

@@ -18,20 +18,22 @@
         <div class="col-md-6">
             <h1>Welcome to your stocks</h1>
             <hr/>
-            <h3>Here is a live feed of your stocks:</h3>
+            <h3>Stocks will appear here as they come in:</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Amount</th>
+                    <th>Current Price</th>
+                    <th>Last Update</th>
                 </tr>
                 </thead>
                 <tbody id="stocksContainer">
                 <tr th:each="stock: ${stocks}">
                     <td th:text="${stock.id}"></td>
                     <td th:text="${stock.name}"></td>
-                    <td th:text="${stock.amount}"></td>
+                    <td th:text="${stock.currentPrice}"></td>
+                    <td th:text="${stock.lastUpdate}"></td>
                 </tr>
                 </tbody>
             </table>

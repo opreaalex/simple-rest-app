@@ -1,8 +1,6 @@
 package com.opreaalex.resource;
 
 import com.opreaalex.domain.Stock;
-import com.opreaalex.dto.StockDTO;
-import com.opreaalex.dto.StockListDTO;
 import com.opreaalex.resource.form.CreateStockForm;
 import com.opreaalex.resource.form.UpdateStockAmountForm;
 import com.opreaalex.resource.validation.ValidationError;
@@ -18,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.math.BigInteger;
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -27,14 +28,14 @@ public class ApiResource {
     private StockService stockService;
 
     @RequestMapping(path = "/stocks", method = RequestMethod.GET)
-    public ResponseEntity<StockListDTO> getStocks() {
-        return ResponseEntity.ok(new StockListDTO(stockService.findAll()));
+    public ResponseEntity<Map<String, List<Stock>>> getStocks() {
+        return ResponseEntity.ok(
+                Collections.singletonMap("stocks", stockService.findAll()));
     }
 
     @RequestMapping(path = "/stocks/{id}", method = RequestMethod.GET)
-    public ResponseEntity<StockDTO> getStock(@PathVariable(name = "id") final BigInteger id) {
+    public ResponseEntity<Stock> getStock(@PathVariable(name = "id") final BigInteger id) {
         return stockService.findById(id)
-                .map(StockDTO::new)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -53,10 +54,11 @@ public class ApiResource {
     @RequestMapping(path = "/stocks/{id}", method = RequestMethod.PUT)
     public ResponseEntity putStock(@PathVariable(name = "id") final BigInteger id,
                                    @Valid @RequestBody UpdateStockAmountForm form) {
-        if (stockService.updateAmount(id, new BigInteger(form.getAmount()))) {
-            return ResponseEntity.accepted().build();
+        if (!stockService.updateAmount(id, new BigInteger(form.getAmount()))) {
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.accepted().build();
     }
 
     @ExceptionHandler

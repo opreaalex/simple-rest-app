@@ -1,7 +1,6 @@
 package com.opreaalex.util;
 
 import com.opreaalex.domain.Stock;
-import com.opreaalex.dto.StockDTO;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DTOUtilTest {
+public class PrintUtilTest {
 
     @Test
     public void testStockDtoToPrintableFormat() {
@@ -17,15 +16,15 @@ public class DTOUtilTest {
                 new BigInteger("1"),
                 "Test",
                 new BigInteger("1000"));
-        final StockDTO dto = new StockDTO(stock);
 
         final Map<String, String> expected = new HashMap<>();
         expected.put("id", "1");
         expected.put("name", "Test");
-        expected.put("amount", "$10.00");
+        expected.put("currentPrice", "$10.00");
+        expected.put("lastUpdate", "");
 
         Assert.assertEquals(expected,
-                DTOUtil.stockDtoToPrintableFormat(dto));
+                PrintUtil.toUserFriendlyStock(stock));
     }
 
     @Test
@@ -33,6 +32,6 @@ public class DTOUtilTest {
         final BigInteger input = new BigInteger("9001");
 
         Assert.assertEquals("$90.01",
-                DTOUtil.amountToPrintableFormat(input));
+                PrintUtil.toUserFriendlyAmount(input));
     }
 }

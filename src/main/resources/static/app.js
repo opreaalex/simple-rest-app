@@ -12,18 +12,12 @@ function connect() {
     });
 }
 
-function disconnect() {
-    if (stompClient !== null) {
-        console.log("Disconnecting from ws");
-        stompClient.disconnect();
-    }
-}
-
 function appendStock(stock) {
     $("#stocksContainer").append("<tr>"
         + "<td>" + stock.id + "</td>"
         + "<td>" + stock.name + "</td>"
-        + "<td>" + stock.amount + "</td>"
+        + "<td>" + stock.currentPrice + "</td>"
+        + "<td>" + stock.lastUpdate + "</td>"
         + "</tr>");
 }
 

@@ -21,7 +21,10 @@ public class InMemoryStockDAOTest {
 
     @Test
     public void testCreate() {
-        Assert.assertEquals(new BigInteger("1"), dao.create("Test", new BigInteger("9001")));
+        final Stock stock = new Stock(
+                new BigInteger("1"), "Test", new BigInteger("9001"));
+        Assert.assertEquals(stock,
+                dao.create("Test", new BigInteger("9001")));
     }
 
     @Test
