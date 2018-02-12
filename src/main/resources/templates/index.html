@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Index | Stocks</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css" />
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1>Welcome to your stocks</h1>
+            <hr/>
+            <h3>Here is a live feed of your stocks:</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stock: ${stocks}">
+                    <td th:text="${stock.id}"></td>
+                    <td th:text="${stock.name}"></td>
+                    <td th:text="${stock.amount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <script type="text/javascript"
+            src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
