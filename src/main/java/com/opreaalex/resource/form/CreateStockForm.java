@@ -10,10 +10,10 @@ public class CreateStockForm {
              message = "name must only contain alphanumeric characters")
     private String name;
 
-    @NotNull(message = "amount must not be null")
+    @NotNull(message = "currentPrice must not be null")
     @Pattern(regexp = "^0|[1-9]\\d*$",
-            message = "amount must be a positive integer")
-    private String amount;
+            message = "currentPrice must be a positive integer")
+    private String currentPrice;
 
     public String getName() {
         return name;
@@ -23,11 +23,11 @@ public class CreateStockForm {
         this.name = name;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setAmount(final String amount) {
-        this.amount = amount;
+    public void setAmount(final String currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }

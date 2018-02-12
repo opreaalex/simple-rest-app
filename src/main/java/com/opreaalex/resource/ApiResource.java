@@ -43,7 +43,7 @@ public class ApiResource {
     @RequestMapping(path = "/stocks", method = RequestMethod.POST)
     public ResponseEntity postStock(@Valid @RequestBody CreateStockForm form) {
         final Stock stock = stockService.create(
-                form.getName(), new BigInteger(form.getAmount()));
+                form.getName(), new BigInteger(form.getCurrentPrice()));
         final URI uri = UriUtil.getUriWithStockId(stock.getId());
 
         return ResponseEntity.accepted()
@@ -54,7 +54,7 @@ public class ApiResource {
     @RequestMapping(path = "/stocks/{id}", method = RequestMethod.PUT)
     public ResponseEntity putStock(@PathVariable(name = "id") final BigInteger id,
                                    @Valid @RequestBody UpdateStockAmountForm form) {
-        if (!stockService.updateAmount(id, new BigInteger(form.getAmount()))) {
+        if (!stockService.updateAmount(id, new BigInteger(form.getCurrentPrice()))) {
             return ResponseEntity.badRequest().build();
         }
 
